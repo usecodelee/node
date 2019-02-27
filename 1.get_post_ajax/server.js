@@ -25,7 +25,7 @@ http.createServer(function(req, res) {
                 res.write('登录成功');
 
             } else {
-                res.write('登录失败');
+                res.write('登录失败!');
             }
             res.end();
         });
