@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    账号：<input type="text" id="name"><br> 密码：
+    <input type="text" id="pass"><br>
+    <input type="button" value="提交" id="subBtn">
+    <script>
+        subBtn.onclick = function() {
+            ajax({
+                url: 'http://localhost:8000',
+                type: 'post',
+                data: {
+                    name: document.getElementById('name').value,
+                    pass: document.getElementById('pass').value
+                },
+                success: function(res) {
+                    console.log(res);
+                }
+            });
+        }
+
+        function ajax(data) {
+            let xhr = new XMLHttpRequest();
+            if (data.type === 'get') {
+                xhr.open('get', data.url + '?name=' + data.data.name + '&pass=' + data.data.pass);
+                xhr.send();
+            } else {
+                xhr.open('post', data.url);
+                xhr.setRequestHeader("CONTENT-TYPE", "application/x-www-form-urlencoded");
+                xhr.send(JSON.stringify(data.data));
+            }
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    data.success(xhr.responseText);
+                }
+            }
+        }
+    </script>
+</body>
+
+</html>
