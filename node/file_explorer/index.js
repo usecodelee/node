@@ -5,16 +5,14 @@ var fs=require('fs'),
 
 fs.readdir(__dirname,function(err,files){
     console.log('');
-
     if(!files.length){
         return console.log('\033[31m没有文件\033[39m');
     }
     console.log('你想看哪一个文件？');
-
     var stats=[];
+
     function file(i){
         var filename=files[i];
-
         fs.stat(__dirname+'/'+filename,function(err,stat){
             stats[i]=stat;
             if(stat.isDirectory()){
@@ -22,8 +20,7 @@ fs.readdir(__dirname,function(err,files){
             }else{
                 console.log(i+'\033[90m'+filename+'\033[39m');
             }
-            i++;
-            if(i==files.length){
+            if(++i==files.length){
                 read();
                 
             }else{
@@ -63,8 +60,5 @@ fs.readdir(__dirname,function(err,files){
             }
         }
     }
-
-
     file(0);
-    
 });
